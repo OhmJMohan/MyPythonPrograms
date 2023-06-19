@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Category list view</title>
+</head>
+<body>
+<h1><marquee>Category</marquee></h1>
+<hr />
+<h2>Category list</h2>
+<p>Total categories: {{ count }}.</p>
+<table>
+<tr>
+<th>Category</th>
+<th>Category items</th>
+<th>Delete</th>
+<th>Update</th>
+</tr>
+{% for x in category %}
+<tr>
+<td>{{ x.category }}</td> 
+<td>{{ x.category_names }}</td>
+<td><a href="/deleteCategory/{{ x.id }}">Delete</a</td>
+<td><a href="/update_category/{{ x.id }}">Update</a></td>
+</tr>
+{% endfor %}
+</table>
+<hr />
+<a href="/home">Click here to go to home page</a>
+</body>
+</html>

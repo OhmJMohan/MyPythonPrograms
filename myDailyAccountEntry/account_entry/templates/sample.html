@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>My favorite web page</title>
+</head>
+<body>
+<h1>welcome</h1>
+<h2>list</h2>
+<table border= "1pt">
+{% for x in account %}
+<tr>
+<td>{{ x.date }}</td>
+<td> {{ x.credit_debit }}</td>
+<td> {{ x.account }}</td>
+<td> {{ x.category }}</td>
+<td> {{ x.amount }}</td>
+<td> {{ x.name}}</td>
+</tr>
+{% endfor %}
+</table>
+</body>
+</html>

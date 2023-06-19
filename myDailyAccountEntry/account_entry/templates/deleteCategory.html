@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Delete category</title>
+</head>
+<body>
+<h1>Delete category</h1>
+<p>Conform delete page, do you want to delete ID: {{ deleteItem.id }}.</p>
+<p>Category: {{ deleteItem.category }}</p>
+<p>Category name: {{ deleteItem.category_names }}</p>
+
+<h2 align="center"><a href="/delete/{{ deleteItem.id }}">Delete</a></h2>
+<h2 align="center"><a href="/home">Cancel</a></h2>
+</body>
+</html>
