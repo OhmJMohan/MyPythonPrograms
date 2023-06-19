@@ -120,5 +120,9 @@ def sample2(request):
 
 def sample(request):
     account_list = account_database.objects.all().values()
-    context = {"account": account_list}
+    cash_credit = account_database.objects.filter(credit_debit="credit", account="Cash").aggregate(cash_c=Sum('amount'))
+    cash_debit = account_database.objects.filter(credit_debit="debit", account="Cash").aggregate(cash_d=Sum('amount'))
+    cash_total_balance = {"cash1": float(cash_credit["cash_c"]), "cash2": float(cash_debit["cash_d"])} 
+    balance = (cash_total_balance["cash1"]-cash_total_balance["cash2"])+8000
+    context = {"account": account_list, "bal": balance}
     return render(request, "sample.html", context)

@@ -1,0 +1,32 @@
+body {
+    background-color: lightblue;
+}
+h1 {
+    text-align: center;
+    font-family: 'Times New Roman';
+}
+table {
+    width: 75%;
+    border-width: 1pt;
+    font-size: 30px;
+}
+td, th {
+    text-align: center;
+    vertical-align: middle;
+}
+img {
+    border-radius: 50%;
+}
+p {
+    font-size: 25px;
+    font-family: Verdana;
+}
+h2 {
+    text-align: center;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}

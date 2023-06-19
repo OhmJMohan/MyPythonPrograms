@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>User login page</title>
+</head>
+<body bgcolor="white">
+<h1>Login</h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+        <p>{{ field.label }}: <br> {{ field }}</p>
+    {% endfor %}
+    <button type="submit">Login</button>
+</form>
+<p>Don't have an account? <a href="{% url 'register' %}">Signup here</a></p>
+<p>Hello visitors, if you have any request to ask regarding password change or forget password. Kindly send mail to PersonalBookmarkingWebsite@gmail.com thank you.</p>
+</body>
+</html>

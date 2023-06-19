@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My favorite bookmark page</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'mystyle.css' %}">
+<style>
+.gfg {
+background-color: white;
+border: 2px solid black;
+color: green;
+padding: 5px 10px;
+text-align: center;
+display: inline-block;
+font-size: 20px;
+margin: 10px 30px;
+cursor: pointer;
+}
+</style>
+</head>
+<body>
+<h1>Welcome</h1>
+<img src="{% static 'mohan.jpg' %}" alt="Mohan photo" class="center">
+<hr />
+<p>Your user name: {{ user.username }}<br>
+        <a href="{% url 'logout' %}">Logout?</a>
+<p>Hello {{ user.first_name }}, you are welcome to your favourite links page and enjoy with your links.</p>
+<h2>Your favourite links:</h2>
+<p>Total links: {{ count }}</p>
+<table>
+<tr>
+<th>Links</th>
+</tr>
+{% for x in link %}
+<tr>
+<td><a href="{{ x.link }}">{{ x.linkname }}</a></td>
+</tr>
+{% endfor %}
+</table>
+<hr />
+<h2>Navigation pain</h2>
+<p><a href="/add">Add new link</a></p>
+<p><a href="/deleteLink/{{ user.username }}">Delete</a></p>
+<p><a href="/updateLink/{{ user.username }}">Update your link</a></p>
+<hr />
+</body>
+</html>

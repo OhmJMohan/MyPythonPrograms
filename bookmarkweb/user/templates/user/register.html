@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Register form</title>
+</head>
+<body bgcolor="blue">
+<h1>Register here</h1>
+<hr>
+
+<form action="" method="POST">
+    {% csrf_token %}
+<table>
+    {% for field in form %}
+        <div>
+<tr>
+<td>{{ field.label }}:</td>
+<td>{{ field }}</td>
+</tr> 
+            {% for error in field.errors %}
+                <small style="color: red">{{ error }}</small>
+            {% endfor %}
+        </div>
+</table>
+    {% endfor %}
+<button type="submit">Register</button>
+</form>
+</body>
+</html>

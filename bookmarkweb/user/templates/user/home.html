@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Personal bookmarking, home page</title>
+</head>
+<body bgcolor="white">
+{% if user.is_authenticated %}
+    <div class="alert alert-success" role="alert">
+        <h1>Welcome {{ user.first_name }}!</h1>
+<p>Your user name: {{ user.username }}<br>
+<p>Wow! successfully loged in to your account, kindly click the link given below to go to your favourite link page.</p>
+<form action="/home/{{ user.username }}">
+<button class = "gfg" type="submit" id="autoClick">
+Favourite link
+</button>
+</form><br>
+      <a href="{% url 'logout' %}">Logout?</a>
+<script type="text/javascript">
+document.getElementById("autoClick").click();
+</script>
+    </div>
+{% else %}
+    <div class="alert alert-success" role="alert">
+        <h1>Welcome!</h1>
+<h3>Hello visitors,</h3>
+<font size="4px">
+<p>You are visiting personal bookmarking website to create links to navigate easily for your important web pages. By signing up, you can save your links separately and safely.</p>
+<a href="{% url 'register' %}">Click here to SignUp now</a></font>
+<h3>Registration steps:</h3>
+<font size="4px"><p>First: User name should be your mobile number.</p>
+<p>Second: Enter your first name.</p>
+<p>Third: Enter your last name.</p>
+<p>Fourth: Enter your e-mail ID.</p>
+<p>Fifth: Enter the password and next confirm password.</p>
+<p>last: click the register button to save your account and enjoy.</p>
+
+<p>Already you have an account? please click here to <a href="{% url 'login' %}">Login</a></p>
+    </div>
+<p>Hello visitors, if you have any request to ask regarding password change or forget password. Kindly send mail to PersonalBookmarkingWebsite@gmail.com thank you.</p></font>
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Update link</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'mystyle.css' %}">
+</head>
+<body>
+<h1>Hello {{ user.first_name }}, click any link to update here</h1>
+<hr />
+<h1>List of links to update here:</h1>
+<p>Total links: {{ count }}</p>
+<table>
+<tr>
+<th>UpdateLinks</th>
+</tr>
+{% for x in link %}
+<tr>
+<td><a href="/update/{{ x.id }}">{{ x.linkname }}</a></td>
+</tr>
+{% endfor %}
+</table>
+<hr />
+</body>
+</html>

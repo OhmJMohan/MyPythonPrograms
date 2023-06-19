@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Delete link page</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'mystyle.css' %}">
+</head>
+<body>
+<h1>Hello {{ user.first_name }}, Delete your unwanted link here</h1>
+<hr />
+<h1>List of links to delete here:</h1>
+<p>Total links: {{ count }}</p>
+<table>
+<tr>
+<th>DeleteLinks</th>
+</tr>
+{% for x in link %}
+<tr>
+<td><a href="/delete/{{ x.id }}/{{ user.username }}">{{ x.linkname }}</a></td>
+</tr>
+{% endfor %}
+</table>
+<hr />
+</body>
+</html>

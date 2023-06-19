@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My favorite bookmark page</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'mystyle.css' %}">
+<style>
+.gfg {
+background-color: white;
+border: 2px solid black;
+color: green;
+padding: 5px 10px;
+text-align: center;
+display: inline-block;
+font-size: 20px;
+margin: 10px 30px;
+cursor: pointer;
+}
+</style>
+</head>
+<body>
+{% if user.is_authenticated %}
+    <div class="alert alert-success" role="alert">
+<h1>Welcome</h1>
+
+<hr />
+<p>{{ today_datetime }}</p>
+<p>Hello {{ user.first_name }}, {{ greeting }}.</p>
+
+<p>Your user name: {{ user.username }}<br>
+        <a href="{% url 'logout' %}">Logout?</a>
+<p>Hello {{ user.first_name }}, you are welcome to your favourite links page and enjoy with your links.</p>
+<h2>Your favourite links:</h2>
+<p>Total links: {{ count }}</p>
+<table>
+<tr>
+<th>Links</th>
+</tr>
+{% for x in link %}
+<tr>
+<td><a href="{{ x.link }}" target="_blank">{{ x.linkname }}</a></td>
+</tr>
+{% endfor %}
+</table>
+<hr />
+<h2>Navigation pain</h2>
+<form action="/add">
+<button class = "gfg" type="submit">
+Add new link
+</button>
+</form><br>
+<form action="/deleteLink/{{ user.username }}">
+<button class = "gfg" type="submit">
+Delete link
+</button>
+</form><br>
+<form action="/updateLink/{{ user.username }}">
+<button class = "gfg" type="submit">
+Update your link
+</button>
+</form>
+<hr />
+    </div>
+{% else %}
+    <div class="alert alert-success" role="alert">
+        <h3>Welcome!</h3>
+        <a href="{% url 'register' %}">Signup</a>
+        <a href="{% url 'login' %}">Login</a>
+    </div>
+{% endif %}
+</body>
+</html>
