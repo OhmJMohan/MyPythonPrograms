@@ -111,15 +111,22 @@ def cash_check(request, filter_date):
     cash_debit = account_database.objects.filter(date__range=("2023-06-10", filter_date), credit_debit="debit", account="Cash").aggregate(cash_d=Sum('amount'))
     cash_total_balance = {"cash1": float(cash_credit["cash_c"]), "cash2": float(cash_debit["cash_d"])} 
     balance = (cash_total_balance["cash1"]-cash_total_balance["cash2"])+8000
-    context = {"bal": balance}
-x_date = request.POST["date"]
-    x_credit_debit = request.POST["credit_debit"]
-    x_category = request.POST["category"]
-    x_account = request.POST["account"]
-    x_particular = request.POST["particular"]
-    x_name = request.POST["name"]
+    x_date = request.POST["date"]
     x_amount = request.POST["amount"]
-    
+    x_rs500 = request.POST["rs500"]
+    x_rs200 = request.POST["rs200"]
+    x_rs100 = request.POST["rs100"]
+    x_rs50 = request.POST["rs50"]
+    x_rs20 = request.POST["rs20"]
+    x_rs10 = request.POST["rs10"]
+    x_rs5 = request.POST["rs5"]
+    x_rs2 = request.POST["rs2"]
+    x_rs1 = request.POST["rs1"]
+    x_total_amount = request.POST["total_amount"]
+    x_balance_amount = request.POST["balance_amount"]    
+    x_status = request.POST["status"]
+
+    context = {"bal": balance}
     return render(request, "cash_balance_check.html", context)
 
 def sample(request):

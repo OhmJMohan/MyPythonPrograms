@@ -7,6 +7,22 @@
 <body>
 <h1>Balance check list view</h1>
 <table border= "1pt">
+<tr>
+<th>Date</th>
+<th>Amount</th>
+<th>Total_amount</th>
+<th>Balance_amount</th>
+<th>Rs500</th>
+<th>Rs200</th>
+<th>Rs100</th>
+<th>Rs50</th>
+<th>Rs20</th>
+<th>Rs10</th>
+<th>Rs5</th>
+<th>Rs2</th>
+<th>Rs1</th>
+<th>status</th>
+</tr>
 {% for x in balance %}
 <tr>
 <td>{{ x.date }}</td>
@@ -26,5 +42,7 @@
 </tr>
 {% endfor %}
 </table>
+<hr/>
+<p><a href="cash_check/{% now "Y-m-d" %}">Click here to check cash amount for today {% now "Y-m-d" %}</a></p>
 </body>
 </html>
