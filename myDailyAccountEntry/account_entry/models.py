@@ -19,7 +19,6 @@ class category_list(models.Model):
 class balance_sheet(models.Model):
     date = models.DateField()
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    rs2000 = models.IntegerField()
     rs500 = models.IntegerField()
     rs200 = models.IntegerField()
     rs100 = models.IntegerField()
@@ -29,4 +28,6 @@ class balance_sheet(models.Model):
     rs5 = models.IntegerField()
     rs2 = models.IntegerField()
     rs1 = models.IntegerField()
-    status = models.CharField(max_length=50)
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    balance_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    status = models.CharField(max_length=50, blank=True)

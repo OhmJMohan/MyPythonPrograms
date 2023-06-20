@@ -106,17 +106,21 @@ def sample1(request):
     context ={"account1": cash_total_balance, "account2": epayon_total_balance, "account3": iobmohan_total_balance, "account4": ibgayathri_total_balance, "account5": ibmohan_total_balance, "account6": jioposlite_total_balance, "account7": canarabank_total_balance, "account8": paynearby_total_balance, "account9": sbi_total_balance}
     return render(request, "sample.html", context)
 
-def sample2(request):
-    cash_credit = account_database.objects.filter(credit_debit="credit", account="JioPosLite").aggregate(cash_c=Sum('amount'))
-    cash_debit = account_database.objects.filter(credit_debit="debit", account="JioPosLite").aggregate(cash_d=Sum('amount'))
-    cash_total_balance = {"cash1": cash_credit["cash_c"], "cash2": cash_debit["cash_d"]} 
-    balance = cash_total_balance["cash1"]
-    epay_credit = account_database.objects.filter(credit_debit="credit", account="EPayOn").aggregate(cash_c=Sum('amount'))
-    epay_debit = account_database.objects.filter(credit_debit="debit", account="EPayOn").aggregate(cash_d=Sum('amount'))
-    epay_total_balance = {"cash1": float(epay_credit["cash_c"]), "cash2": float(epay_debit["cash_d"])} 
-    balance1 = (epay_total_balance["cash1"]-epay_total_balance["cash2"]) 
-    context ={"account1": cash_total_balance, "cred": cash_credit["cash_c"], "bal": balance, "bal1": balance1}
-    return render(request, "sample.html", context)
+def cash_check(request, filter_date):
+    cash_credit = account_database.objects.filter(date__range=("2023-06-10", filter_date), credit_debit="credit", account="Cash").aggregate(cash_c=Sum('amount'))
+    cash_debit = account_database.objects.filter(date__range=("2023-06-10", filter_date), credit_debit="debit", account="Cash").aggregate(cash_d=Sum('amount'))
+    cash_total_balance = {"cash1": float(cash_credit["cash_c"]), "cash2": float(cash_debit["cash_d"])} 
+    balance = (cash_total_balance["cash1"]-cash_total_balance["cash2"])+8000
+    context = {"bal": balance}
+x_date = request.POST["date"]
+    x_credit_debit = request.POST["credit_debit"]
+    x_category = request.POST["category"]
+    x_account = request.POST["account"]
+    x_particular = request.POST["particular"]
+    x_name = request.POST["name"]
+    x_amount = request.POST["amount"]
+    
+    return render(request, "cash_balance_check.html", context)
 
 def sample(request):
     account_list = account_database.objects.all().values()
@@ -126,3 +130,8 @@ def sample(request):
     balance = (cash_total_balance["cash1"]-cash_total_balance["cash2"])+8000
     context = {"account": account_list, "bal": balance}
     return render(request, "sample.html", context)
+
+def balance_view(request):
+    balance_list = balance_sheet.objects.all().values()
+    context = {"balance": balance_list}
+    return render(request, "cash_balance_view.html", context)

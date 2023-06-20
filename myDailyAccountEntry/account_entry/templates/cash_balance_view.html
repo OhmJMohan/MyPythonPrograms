@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cash balance check sheet</title>
+</head>
+<body>
+<h1>Balance check list view</h1>
+<table border= "1pt">
+{% for x in balance %}
+<tr>
+<td>{{ x.date }}</td>
+<td> {{ x.amount }}</td>
+<td> {{ x.total_amount }}</td>
+<td> {{ x.balance_amount }}</td>
+<td> {{ x.rs500 }}</td>
+<td> {{ x.rs200 }}</td>
+<td> {{ x.rs100 }}</td>
+<td> {{ x.rs50 }}</td>
+<td> {{ x.rs20 }}</td>
+<td> {{ x.rs10 }}</td>
+<td> {{ x.rs5 }}</td>
+<td> {{ x.rs2 }}</td>
+<td> {{ x.rs1 }}</td>
+<td> {{ x.status }}</td>
+</tr>
+{% endfor %}
+</table>
+</body>
+</html>
