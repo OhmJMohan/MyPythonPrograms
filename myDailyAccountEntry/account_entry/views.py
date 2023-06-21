@@ -106,27 +106,13 @@ def sample1(request):
     context ={"account1": cash_total_balance, "account2": epayon_total_balance, "account3": iobmohan_total_balance, "account4": ibgayathri_total_balance, "account5": ibmohan_total_balance, "account6": jioposlite_total_balance, "account7": canarabank_total_balance, "account8": paynearby_total_balance, "account9": sbi_total_balance}
     return render(request, "sample.html", context)
 
-def cash_check(request, filter_date):
-    cash_credit = account_database.objects.filter(date__range=("2023-06-10", filter_date), credit_debit="credit", account="Cash").aggregate(cash_c=Sum('amount'))
-    cash_debit = account_database.objects.filter(date__range=("2023-06-10", filter_date), credit_debit="debit", account="Cash").aggregate(cash_d=Sum('amount'))
+def cash_check(request):
+    x_date = request.POST["filter_date"]
+    cash_credit = account_database.objects.filter(date__range=("2023-06-10", x_date), credit_debit="credit", account="Cash").aggregate(cash_c=Sum('amount'))
+    cash_debit = account_database.objects.filter(date__range=("2023-06-10", x_date), credit_debit="debit", account="Cash").aggregate(cash_d=Sum('amount'))
     cash_total_balance = {"cash1": float(cash_credit["cash_c"]), "cash2": float(cash_debit["cash_d"])} 
     balance = (cash_total_balance["cash1"]-cash_total_balance["cash2"])+8000
-    x_date = request.POST["date"]
-    x_amount = request.POST["amount"]
-    x_rs500 = request.POST["rs500"]
-    x_rs200 = request.POST["rs200"]
-    x_rs100 = request.POST["rs100"]
-    x_rs50 = request.POST["rs50"]
-    x_rs20 = request.POST["rs20"]
-    x_rs10 = request.POST["rs10"]
-    x_rs5 = request.POST["rs5"]
-    x_rs2 = request.POST["rs2"]
-    x_rs1 = request.POST["rs1"]
-    x_total_amount = request.POST["total_amount"]
-    x_balance_amount = request.POST["balance_amount"]    
-    x_status = request.POST["status"]
-
-    context = {"bal": balance}
+    context = {"bal": balance, "date": x_date}
     return render(request, "cash_balance_check.html", context)
 
 def sample(request):
@@ -142,3 +128,22 @@ def balance_view(request):
     balance_list = balance_sheet.objects.all().values()
     context = {"balance": balance_list}
     return render(request, "cash_balance_view.html", context)
+
+def balance_checkEntry(request):
+    x_date = request.POST["date"]
+    x_amount = request.POST["amount"]
+    x_rs500 = request.POST["rs500"]
+    x_rs200 = request.POST["rs200"]
+    x_rs100 = request.POST["rs100"]
+    x_rs50 = request.POST["rs50"]
+    x_rs20 = request.POST["rs20"]
+    x_rs10 = request.POST["rs10"]
+    x_rs5 = request.POST["rs5"]
+    x_rs2 = request.POST["rs2"]
+    x_rs1 = request.POST["rs1"]
+    x_total_amount = request.POST["total_amount"]
+    x_balance_amount = request.POST["balance_amount"]    
+    x_status = request.POST["status"]
+    cash_balance_check = balance_sheet(date=x_date, amount=x_amount, rs500=x_rs500, rs200=x_rs200, rs100=x_rs100, rs50=x_rs50, rs20=x_rs20, rs10=x_rs10, rs5=x_rs5, rs2=x_rs2, rs1=x_rs1, total_amount=x_total_amount, balance_amount=x_balance_amount, status=x_status)
+    cash_balance_check.save()
+    return redirect("/home")

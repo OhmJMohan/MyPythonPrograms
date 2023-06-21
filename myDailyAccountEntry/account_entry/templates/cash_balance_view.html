@@ -43,6 +43,9 @@
 {% endfor %}
 </table>
 <hr/>
-<p><a href="cash_check/{% now "Y-m-d" %}">Click here to check cash amount for today {% now "Y-m-d" %}</a></p>
+<form action="cash_check/" method="post">
+<p>Enter the date to cash check: <input type="date" name="filter_date" value="{% now "Y-m-d" %}" placeholder="Select the date here:"></p>
+<p><input type="submit" value="Submit"></p>
+</form>
 </body>
 </html>

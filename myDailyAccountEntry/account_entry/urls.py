@@ -29,4 +29,7 @@ urlpatterns = [
     path('add/', views.add),
     path('add/addAccountEntry/', views.addAccountEntry),
     path('sample/', views.sample),
+    path('balance_view/', views.balance_view),
+    path('cash_check/', views.cash_check),
+    path('balance_checkEntry/', views.balance_checkEntry),
 ]
