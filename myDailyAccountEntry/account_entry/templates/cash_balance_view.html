@@ -44,6 +44,7 @@
 </table>
 <hr/>
 <form action="cash_check/" method="post">
+{% csrf_token %}
 <p>Enter the date to cash check: <input type="date" name="filter_date" value="{% now "Y-m-d" %}" placeholder="Select the date here:"></p>
 <p><input type="submit" value="Submit"></p>
 </form>

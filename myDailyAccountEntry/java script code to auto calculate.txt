@@ -1,0 +1,29 @@
+<input id='net_weight' ...>
+Next, use JS input event or a change event to detect when the user has inputted a value, do your calculations, and then update the values in your form:
+<script>
+    // Get the input elements by targeting their id:
+    const gross_input = document.getElementById('gross_weight');
+    const tier_input = document.getElementById('tier_weight');
+    const net_input = document.getElementById('net_weight');
+ 
+    // Create variables for what the user inputs, and the output:
+    let gross = 0;
+    let tier = 0;
+    let net = 0;
+
+    // Add an event listener to 'listen' to what the user types into the inputs:
+    gross_input.addEventListener('input', e => {
+      gross = e.target.value;
+      updateNet()
+    });
+    tier_input.addEventListener('input', e => {
+      tier = e.target.value;
+      updateNet()
+    });
+
+    // Update the value of net based on what the user inputs in for gross and tier
+    function updateNet(e) {
+        net = gross - tier;
+        net_input.value = net;
+    }
+</script>

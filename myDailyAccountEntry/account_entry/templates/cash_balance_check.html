@@ -6,20 +6,20 @@
 </head>
 <body>
 <h1>Cash balance check entry</h1>
-<form action="balance_checkEntry/" method="post">
+<form action="balance_view/cash_check/balance_checkEntry/" method="post">
 {% csrf_token %}
 <p>Date: <br/><input type="text" name="date" value="{{ date }}" readonly autofocus></p> 
-<p>Amount: <br/><input type="text" name="amount" value="{{ bal }}" readonly></p> 
-<p>Rs 500: <br/><input type="number" name="rs500" value=0 placeholder="500"></p> 
-<p>Rs 200: <br/><input type="number" name="rs200" value=0 placeholder="200"></p>
-<p>Rs 100: <br/><input type="number" name="rs100" value=0 placeholder="100"></p>  
-<p>Rs 50: <br/><input type="number" name="rs50" value=0 placeholder="50"></p> 
-<p>Rs 20: <br/><input type="number" name="rs20" value=0 placeholder="20"></p> 
-<p>Rs 10: <br/><input type="number" name="rs10" value=0 placeholder="10"></p> 
-<p>Rs 5: <br/><input type="number" name="rs5" value=0 placeholder="5"></p> 
-<p>Rs 2: <br/><input type="number" name="rs2" value=0 placeholder="2"></p> 
-<p>Rs 1: <br/><input type="number" name="rs1" value=0 placeholder="1"></p> 
-<p>Total amount: <br/><input type="text" name="total_amount" value=0 placeholder="Total amount:" readonly></p> 
+<p>Amount: <br/><input id='amount' type="text" name="amount" value="{{ bal }}" readonly></p> 
+<p>Rs 500: <br/><input id='rs500' type="number" name="rs500" value=0 placeholder="500"></p> 
+<p>Rs 200: <br/><input id='rs200' type="number" name="rs200" value=0 placeholder="200"></p>
+<p>Rs 100: <br/><input id='rs100' type="number" name="rs100" value=0 placeholder="100"></p>  
+<p>Rs 50: <br/><input id='rs50' type="number" name="rs50" value=0 placeholder="50"></p> 
+<p>Rs 20: <br/><input id='rs20' type="number" name="rs20" value=0 placeholder="20"></p> 
+<p>Rs 10: <br/><input id='rs10' type="number" name="rs10" value=0 placeholder="10"></p> 
+<p>Rs 5: <br/><input id='rs5' type="number" name="rs5" value=0 placeholder="5"></p> 
+<p>Rs 2: <br/><input id='rs2' type="number" name="rs2" value=0 placeholder="2"></p> 
+<p>Rs 1: <br/><input id='rs1' type="number" name="rs1" value=0 placeholder="1"></p> 
+<p>Total amount: <br/><input id='total_amount' type="text" name="total_amount" value=0 placeholder="Total amount:" readonly></p> 
 <p>Difference amount: <br/><input type="text" name="balance_amount" value=0 placeholder="Difference amount:" readonly></p> 
 <p>Status: <br/><select name="status">
 <option value="Proper">Proper</option>

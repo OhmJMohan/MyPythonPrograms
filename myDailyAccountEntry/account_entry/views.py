@@ -146,4 +146,4 @@ def balance_checkEntry(request):
     x_status = request.POST["status"]
     cash_balance_check = balance_sheet(date=x_date, amount=x_amount, rs500=x_rs500, rs200=x_rs200, rs100=x_rs100, rs50=x_rs50, rs20=x_rs20, rs10=x_rs10, rs5=x_rs5, rs2=x_rs2, rs1=x_rs1, total_amount=x_total_amount, balance_amount=x_balance_amount, status=x_status)
     cash_balance_check.save()
-    return redirect("/home")
+    return redirect("/balance_view")
