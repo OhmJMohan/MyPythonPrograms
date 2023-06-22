@@ -6,10 +6,10 @@
 </head>
 <body>
 <h1>Cash balance check entry</h1>
-<form action="balance_view/cash_check/balance_checkEntry/" method="post">
+<form action="/balance_view/cash_check/balance_checkEntry/" method="post">
 {% csrf_token %}
 <p>Date: <br/><input type="text" name="date" value="{{ date }}" readonly autofocus></p> 
-<p>Amount: <br/><input id='amount' type="text" name="amount" value="{{ bal }}" readonly></p> 
+<p>Amount: <br/><input type="text" name="amount" value="{{ bal }}" readonly></p> 
 <p>Rs 500: <br/><input id='rs500' type="number" name="rs500" value=0 placeholder="500"></p> 
 <p>Rs 200: <br/><input id='rs200' type="number" name="rs200" value=0 placeholder="200"></p>
 <p>Rs 100: <br/><input id='rs100' type="number" name="rs100" value=0 placeholder="100"></p>  
@@ -20,12 +20,83 @@
 <p>Rs 2: <br/><input id='rs2' type="number" name="rs2" value=0 placeholder="2"></p> 
 <p>Rs 1: <br/><input id='rs1' type="number" name="rs1" value=0 placeholder="1"></p> 
 <p>Total amount: <br/><input id='total_amount' type="text" name="total_amount" value=0 placeholder="Total amount:" readonly></p> 
-<p>Difference amount: <br/><input type="text" name="balance_amount" value=0 placeholder="Difference amount:" readonly></p> 
+<p>Difference amount: <br/><input id='difference_amount' type="text" name="balance_amount" value=0 placeholder="Difference amount:" readonly></p> 
 <p>Status: <br/><select name="status">
 <option value="Proper">Proper</option>
 <option value="Approximate">Approximate</option>
 </select></p>
 <p>Submit:<br/><input type="submit" value="Submit"></p>
 </form>
+<script>
+    // Get the input elements by targeting their id:
+    const r500_input = document.getElementById('rs500');
+    const r200_input = document.getElementById('rs200');
+    const r100_input = document.getElementById('rs100');
+    const r50_input = document.getElementById('rs50');
+    const r20_input = document.getElementById('rs20');
+    const r10_input = document.getElementById('rs10');
+    const r5_input = document.getElementById('rs5');
+    const r2_input = document.getElementById('rs2');
+    const r1_input = document.getElementById('rs1');
+    const net_input = document.getElementById('total_amount');
+     const difamount_input = document.getElementById('difference_amount');
+    // Create variables for what the user inputs, and the output:
+    let r500 = 0;
+    let r200 = 0;
+    let r100 = 0;
+    let r50 = 0;
+    let r20 = 0;
+    let r10 = 0;
+    let r5 = 0;
+    let r2 = 0;
+    let r1 = 0;
+    let net = 0;
+    let difamount = 0;
+
+    // Add an event listener to 'listen' to what the user types into the inputs:
+    r500_input.addEventListener('input', e => {
+      r500 = e.target.value;
+      updateNet()
+    });
+    r200_input.addEventListener('input', e => {
+      r200 = e.target.value;
+      updateNet()
+    });
+    r100_input.addEventListener('input', e => {
+      r100 = e.target.value;
+      updateNet()
+    });
+    r50_input.addEventListener('input', e => {
+      r50 = e.target.value;
+      updateNet()
+    });
+    r20_input.addEventListener('input', e => {
+      r20 = e.target.value;
+      updateNet()
+    });
+    r10_input.addEventListener('input', e => {
+      r10 = e.target.value;
+      updateNet()
+    });
+    r5_input.addEventListener('input', e => {
+      r5 = e.target.value;
+      updateNet()
+    });
+    r2_input.addEventListener('input', e => {
+      r2 = e.target.value;
+      updateNet()
+    });
+    r1_input.addEventListener('input', e => {
+      r1 = e.target.value;
+      updateNet()
+    });
+    // Update the value of net based on what the user inputs in in amount fields
+    function updateNet(e) {
+        net = parseInt(r500*500) + parseInt(r200*200) + parseInt(r100*100) + parseInt(r50*50) + parseInt(r20*20) + parseInt(r10*10) + parseInt(r5*5) + parseInt(r2*2) + parseInt(r1*1);
+        difamount = {{ bal }} - net;
+        net_input.value = net;
+        difamount_input.value = difamount;
+    }
+</script>
 </body>
 </html>

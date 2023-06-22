@@ -1,29 +1,71 @@
-<input id='net_weight' ...>
-Next, use JS input event or a change event to detect when the user has inputted a value, do your calculations, and then update the values in your form:
 <script>
     // Get the input elements by targeting their id:
-    const gross_input = document.getElementById('gross_weight');
-    const tier_input = document.getElementById('tier_weight');
-    const net_input = document.getElementById('net_weight');
- 
+    const r500_input = document.getElementById('rs500');
+    const r200_input = document.getElementById('rs200');
+    const r100_input = document.getElementById('rs100');
+    const r50_input = document.getElementById('rs50');
+    const r20_input = document.getElementById('rs20');
+    const r10_input = document.getElementById('rs10');
+    const r5_input = document.getElementById('rs5');
+    const r2_input = document.getElementById('rs2');
+    const r1_input = document.getElementById('rs1');
+    const net_input = document.getElementById('total_amount');
+     const difamount_input = document.getElementById('difference_amount');
     // Create variables for what the user inputs, and the output:
-    let gross = 0;
-    let tier = 0;
+    let r500 = 0;
+    let r200 = 0;
+    let r100 = 0;
+    let r50 = 0;
+    let r20 = 0;
+    let r10 = 0;
+    let r5 = 0;
+    let r2 = 0;
+    let r1 = 0;
     let net = 0;
+    let difamount = 0;
 
     // Add an event listener to 'listen' to what the user types into the inputs:
-    gross_input.addEventListener('input', e => {
-      gross = e.target.value;
+    r500_input.addEventListener('input', e => {
+      r500 = e.target.value;
       updateNet()
     });
-    tier_input.addEventListener('input', e => {
-      tier = e.target.value;
+    r200_input.addEventListener('input', e => {
+      r200 = e.target.value;
       updateNet()
     });
-
-    // Update the value of net based on what the user inputs in for gross and tier
+    r100_input.addEventListener('input', e => {
+      r100 = e.target.value;
+      updateNet()
+    });
+    r50_input.addEventListener('input', e => {
+      r50 = e.target.value;
+      updateNet()
+    });
+    r20_input.addEventListener('input', e => {
+      r20 = e.target.value;
+      updateNet()
+    });
+    r10_input.addEventListener('input', e => {
+      r10 = e.target.value;
+      updateNet()
+    });
+    r5_input.addEventListener('input', e => {
+      r5 = e.target.value;
+      updateNet()
+    });
+    r2_input.addEventListener('input', e => {
+      r2 = e.target.value;
+      updateNet()
+    });
+    r1_input.addEventListener('input', e => {
+      r1 = e.target.value;
+      updateNet()
+    });
+    // Update the value of net based on what the user inputs in in amount fields
     function updateNet(e) {
-        net = gross - tier;
+        net = parseInt(r500*500) + parseInt(r200*200) + parseInt(r100*100) + parseInt(r50*50) + parseInt(r20*20) + parseInt(r10*10) + parseInt(r5*5) + parseInt(r2*2) + parseInt(r1*1);
+        difamount = 8000 - net;
         net_input.value = net;
+        difamount_input.value = difamount;
     }
 </script>
