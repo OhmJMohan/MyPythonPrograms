@@ -32,4 +32,5 @@ urlpatterns = [
     path('balance_view/', views.balance_view),
     path('balance_view/cash_check/', views.cash_check),
     path('balance_view/cash_check/balance_checkEntry/', views.balance_checkEntry),
+    path('sample2/', views.sample2),
 ]
