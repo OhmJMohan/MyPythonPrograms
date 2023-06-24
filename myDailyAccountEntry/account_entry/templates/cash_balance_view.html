@@ -22,6 +22,7 @@
 <th>Rs2</th>
 <th>Rs1</th>
 <th>status</th>
+<th>Update</th>
 </tr>
 {% for x in balance %}
 <tr>
@@ -39,6 +40,7 @@
 <td> {{ x.rs2 }}</td>
 <td> {{ x.rs1 }}</td>
 <td> {{ x.status }}</td>
+<td><a href="/update_balance/{{ x.id }}/{{ x.date }}">Update</a></td>
 </tr>
 {% endfor %}
 </table>

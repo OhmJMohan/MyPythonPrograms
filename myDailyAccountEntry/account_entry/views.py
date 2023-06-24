@@ -110,18 +110,24 @@ def cash_check(request):
     x_date = request.POST["filter_date"]
     cash_credit = account_database.objects.filter(date__range=("2023-06-10", x_date), credit_debit="credit", account="Cash").aggregate(cash_c=Sum('amount'))
     cash_debit = account_database.objects.filter(date__range=("2023-06-10", x_date), credit_debit="debit", account="Cash").aggregate(cash_d=Sum('amount'))
-    cash_total_balance = {"cash1": float(cash_credit["cash_c"]), "cash2": float(cash_debit["cash_d"])} 
-    balance = (cash_total_balance["cash1"]-cash_total_balance["cash2"])+8000
-    context = {"bal": balance, "date": x_date}
+    cash_total_balance = {"cash1": cash_credit["cash_c"], "cash2": cash_debit["cash_d"]} 
+    if cash_total_balance["cash1"] == None and cash_total_balance["cash2"] == None:
+        cash_balance = float(0)
+    else:
+        cash_balance = float(cash_total_balance["cash1"])-float(cash_total_balance["cash2"]) 
+    context = {"bal": cash_balance, "date": x_date}
     return render(request, "cash_balance_check.html", context)
 
 def sample(request):
     account_list = account_database.objects.all().values()
     cash_credit = account_database.objects.filter(credit_debit="credit", account="Cash").aggregate(cash_c=Sum('amount'))
     cash_debit = account_database.objects.filter(credit_debit="debit", account="Cash").aggregate(cash_d=Sum('amount'))
-    cash_total_balance = {"cash1": float(cash_credit["cash_c"]), "cash2": float(cash_debit["cash_d"])} 
-    balance = (cash_total_balance["cash1"]-cash_total_balance["cash2"])+8000
-    context = {"account": account_list, "bal": balance}
+    cash_total_balance = {"cash1": cash_credit["cash_c"], "cash2": cash_debit["cash_d"]} 
+    if cash_total_balance["cash1"] == None and cash_total_balance["cash2"] == None:
+        cash_balance = float(0)
+    else:
+        cash_balance = float(cash_total_balance["cash1"])-float(cash_total_balance["cash2"]) 
+    context = {"account": account_list, "bal": cash_balance}
     return render(request, "sample.html", context)
 
 def balance_view(request):
@@ -148,7 +154,7 @@ def balance_checkEntry(request):
     cash_balance_check.save()
     return redirect("/balance_view")
 
-def sample2(request):
+def daily_account_report(request):
     cash_credit = account_database.objects.filter(credit_debit="credit", account="Cash").aggregate(cash_c=Sum('amount'))
     cash_debit = account_database.objects.filter(credit_debit="debit", account="Cash").aggregate(cash_d=Sum('amount'))
     cash_total_balance = {"cash1": cash_credit["cash_c"], "cash2": cash_debit["cash_d"]} 
@@ -212,5 +218,12 @@ def sample2(request):
         sbimohan_balance = float(0)
     else:
         sbimohan_balance = float(sbimohan_total_balance["sbimohan1"])-float(sbimohan_total_balance["sbimohan2"]) 
-    context = {"account1": cash_balance, "account2": epayon_balance, "account3": iobmohan_balance, "account4": ibgayathri_balance, "account5": ibmohan_balance, "account6": jioposlite_balance, "account7": mohancanarabank_balance, "account8": paynearby_balance, "account9": sbimohan_balance}
-    return render(request, "sample2.html", context)
+    total_amount = (cash_balance + epayon_balance + iobmohan_balance + ibgayathri_balance + ibmohan_balance + jioposlite_balance + mohancanarabank_balance + paynearby_balance + sbimohan_balance)
+    context = {"account1": cash_balance, "account2": epayon_balance, "account3": iobmohan_balance, "account4": ibgayathri_balance, "account5": ibmohan_balance, "account6": jioposlite_balance, "account7": mohancanarabank_balance, "account8": paynearby_balance, "account9": sbimohan_balance, "tot": total_amount}
+    return render(request, "total_account_report.html", context)
+
+def test_page(request, id, date):
+    test_id = id
+    test_date = date
+    context = {"t1": test_id, "t2": test_date}
+    return render(request, "sample1.html", context)
