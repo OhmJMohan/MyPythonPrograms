@@ -227,3 +227,19 @@ def test_page(request, id, date):
     test_date = date
     context = {"t1": test_id, "t2": test_date}
     return render(request, "sample1.html", context)
+
+def cre_list(nam):
+    cash_credit = account_database.objects.filter(credit_debit="credit", name=nam).aggregate(cash_c=Sum('amount'))
+    cash_debit = account_database.objects.filter(credit_debit="debit", name=nam).aggregate(cash_d=Sum('amount'))
+    cash_total_balance = {"cash1": cash_credit["cash_c"], "cash2": cash_debit["cash_d"]} 
+    if cash_total_balance["cash1"] == None and cash_total_balance["cash2"] == None:
+        cash_balance = float(0)
+    else:
+        cash_balance = float(cash_total_balance["cash2"])-float(cash_total_balance["cash1"]) 
+    context = {nam: cash_balance}
+    return context
+
+def credit_list(request):
+    crei_list = {"Gopal TF": cre_list("Gopal TF"), "Manimaran": cre_list("Manimaran")}
+    context = {"list": crei_list}
+    return render(request, "credit_list.html", context)    

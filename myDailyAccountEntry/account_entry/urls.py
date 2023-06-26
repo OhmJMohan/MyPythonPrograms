@@ -34,4 +34,5 @@ urlpatterns = [
     path('balance_view/cash_check/balance_checkEntry/', views.balance_checkEntry),
     path('daily_account_report/', views.daily_account_report),
     path('test/<int:id>/<str:date>', views.test_page),
+    path('credit/', views.credit_list),
 ]
