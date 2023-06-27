@@ -229,17 +229,21 @@ def test_page(request, id, date):
     return render(request, "sample1.html", context)
 
 def cre_list(nam):
-    cash_credit = account_database.objects.filter(credit_debit="credit", name=nam).aggregate(cash_c=Sum('amount'))
-    cash_debit = account_database.objects.filter(credit_debit="debit", name=nam).aggregate(cash_d=Sum('amount'))
+    cash_credit = account_database.objects.filter(category="Money return", name=nam).aggregate(cash_c=Sum('amount'))
+    cash_debit = account_database.objects.filter(category="For credit", name=nam).aggregate(cash_d=Sum('amount'))
     cash_total_balance = {"cash1": cash_credit["cash_c"], "cash2": cash_debit["cash_d"]} 
-    if cash_total_balance["cash1"] == None and cash_total_balance["cash2"] == None:
+    if cash_total_balance["cash1"] == None or cash_total_balance["cash2"] == None:
         cash_balance = float(0)
     else:
         cash_balance = float(cash_total_balance["cash2"])-float(cash_total_balance["cash1"]) 
-    context = {nam: cash_balance}
+    context = {"bal_list": cash_balance}
     return context
 
 def credit_list(request):
-    crei_list = {"Gopal TF": cre_list("Gopal TF"), "Manimaran": cre_list("Manimaran")}
-    context = {"list": crei_list}
+    balanceList_names = dict()
+    name_list = category_list.objects.filter(category="Names").values("category_names")
+    for x in name_list:
+        apple = cre_list(x["category_names"])
+        balanceList_names[x["category_names"]] = apple["bal_list"]
+    context = {"balance_list": balanceList_names}
     return render(request, "credit_list.html", context)    
