@@ -8,10 +8,12 @@
 <h1>welcome</h1>
 <table border = "2px">
 {% for x, y in balance_list.items %}
+{% if y != 0 %} 
 <tr>
 <td>{{ x }}</td>
 <td>{{ y }}</td>
 </tr>
+{% endif %}
 {% endfor %}
 </table>
 </body>
