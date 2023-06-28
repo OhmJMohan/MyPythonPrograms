@@ -214,5 +214,14 @@ def credit_list(request):
     for x in name_list:
         apple = cre_list(x["category_names"])
         balanceList_names[x["category_names"]] = apple["bal_list"]
-    context = {"balance_list": balanceList_names}
+
+    lst = list()
+    for key, val in list(balanceList_names.items()):
+        lst.append((val, key))
+    lst.sort(reverse=True)
+    lst1 = list()
+    for val, key in lst:
+        lst1.append((key, val))
+    converted_dict = dict(lst1)
+    context = {"balance_list": converted_dict}
     return render(request, "credit_list.html", context)    
