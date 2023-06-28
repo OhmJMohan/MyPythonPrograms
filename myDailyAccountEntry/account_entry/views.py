@@ -197,7 +197,7 @@ def test_page(request, id, date):
     context = {"t1": test_id, "t2": test_date}
     return render(request, "sample1.html", context)
 
-def cre_list(nam):
+def cre_listWait(nam):
     cash_credit = account_database.objects.filter(category="Money return", name=nam).aggregate(cash_c=Sum('amount'))
     cash_debit = account_database.objects.filter(category="For credit", name=nam).aggregate(cash_d=Sum('amount'))
     cash_total_balance = {"cash1": cash_credit["cash_c"], "cash2": cash_debit["cash_d"]} 
@@ -205,6 +205,22 @@ def cre_list(nam):
         cash_balance = float(0)
     else:
         cash_balance = float(cash_total_balance["cash2"])-float(cash_total_balance["cash1"]) 
+    context = {"bal_list": cash_balance}
+    return context
+
+def cre_list(nam):
+    cash_credit = account_database.objects.filter(category="Money return", name=nam).aggregate(cash_c=Sum('amount'))
+    cash_debit = account_database.objects.filter(category="For credit", name=nam).aggregate(cash_d=Sum('amount'))
+    cash_total_balance = {"cash1": cash_credit["cash_c"], "cash2": cash_debit["cash_d"]} 
+    if cash_total_balance["cash1"] == None: 
+        xx = float(0) 
+    else:
+        xx = float(cash_total_balance["cash1"])
+    if cash_total_balance["cash2"] == None:
+        yy = float(0)
+    else:
+        yy = float(cash_total_balance["cash2"]) 
+    cash_balance = yy - xx
     context = {"bal_list": cash_balance}
     return context
 
