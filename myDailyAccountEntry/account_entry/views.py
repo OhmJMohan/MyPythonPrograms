@@ -87,17 +87,16 @@ def cash_check(request):
     context = {"bal": cash_balance, "date": x_date}
     return render(request, "cash_balance_check.html", context)
 
-def sample(request):
-    account_list = account_database.objects.all().values()[20:]
-    cash_credit = account_database.objects.filter(credit_debit="credit", account="Cash").aggregate(cash_c=Sum('amount'))
-    cash_debit = account_database.objects.filter(credit_debit="debit", account="Cash").aggregate(cash_d=Sum('amount'))
-    cash_total_balance = {"cash1": cash_credit["cash_c"], "cash2": cash_debit["cash_d"]} 
-    if cash_total_balance["cash1"] == None and cash_total_balance["cash2"] == None:
-        cash_balance = float(0)
-    else:
-        cash_balance = float(cash_total_balance["cash1"])-float(cash_total_balance["cash2"]) 
-    context = {"account": account_list, "bal": cash_balance}
-    return render(request, "sample.html", context)
+
+def account_entry_report(request):
+    count = 0
+    account_listCount = account_database.objects.all().values()
+    for coun in account_listCount:
+        count = count + 1
+
+    account_list = account_database.objects.all().values()[count-20:]
+    context = {"account": account_list, "coun": count}
+    return render(request, "accountEntryDatabase.html", context)
 
 def balance_view(request):
     balance_list = balance_sheet.objects.all().values()
@@ -127,86 +126,126 @@ def daily_account_report(request):
     cash_credit = account_database.objects.filter(credit_debit="credit", account="Cash").aggregate(cash_c=Sum('amount'))
     cash_debit = account_database.objects.filter(credit_debit="debit", account="Cash").aggregate(cash_d=Sum('amount'))
     cash_total_balance = {"cash1": cash_credit["cash_c"], "cash2": cash_debit["cash_d"]} 
-    if cash_total_balance["cash1"] == None or cash_total_balance["cash2"] == None:
-        cash_balance = float(0)
+    if cash_total_balance["cash1"] == None: 
+        xx1 = float(0) 
     else:
-        cash_balance = float(cash_total_balance["cash1"])-float(cash_total_balance["cash2"]) 
+        xx1 = float(cash_total_balance["cash1"])
+    if cash_total_balance["cash2"] == None:
+        yy1 = float(0)
+    else:
+        yy1 = float(cash_total_balance["cash2"]) 
+    cash_balance = (xx1-yy1)
     epayon_credit = account_database.objects.filter(credit_debit="credit", account="EPayOn").aggregate(epayon_c=Sum('amount'))
     epayon_debit = account_database.objects.filter(credit_debit="debit", account="EPayOn").aggregate(epayon_d=Sum('amount'))
     epayon_total_balance = {"epayon1": epayon_credit["epayon_c"], "epayon2": epayon_debit["epayon_d"]} 
-    if epayon_total_balance["epayon1"] == None or epayon_total_balance["epayon2"] == None:
-        epayon_balance = float(0)
+    if epayon_total_balance["epayon1"] == None: 
+        xx2 = float(0) 
     else:
-        epayon_balance = float(epayon_total_balance["epayon1"])-float(epayon_total_balance["epayon2"]) 
+        xx2 = float(epayon_total_balance["epayon1"])
+    if epayon_total_balance["epayon2"] == None:
+        yy2 = float(0)
+    else:
+        yy2 = float(epayon_total_balance["epayon2"]) 
+    epayon_balance = (xx2-yy2)
     iobmohan_credit = account_database.objects.filter(credit_debit="credit", account="IOBMohan").aggregate(iobmohan_c=Sum('amount'))
     iobmohan_debit = account_database.objects.filter(credit_debit="debit", account="IOBMohan").aggregate(iobmohan_d=Sum('amount'))
     iobmohan_total_balance = {"iobmohan1": iobmohan_credit["iobmohan_c"], "iobmohan2": iobmohan_debit["iobmohan_d"]} 
-    if iobmohan_total_balance["iobmohan1"] == None or iobmohan_total_balance["iobmohan2"] == None:
-        iobmohan_balance = float(0)
+    if iobmohan_total_balance["iobmohan1"] == None: 
+        xx3 = float(0) 
     else:
-        iobmohan_balance = float(iobmohan_total_balance["iobmohan1"])-float(iobmohan_total_balance["iobmohan2"]) 
+        xx3 = float(iobmohan_total_balance["iobmohan1"])
+    if iobmohan_total_balance["iobmohan2"] == None:
+        yy3 = float(0)
+    else:
+        yy3 = float(iobmohan_total_balance["iobmohan2"]) 
+    iobmohan_balance = (xx3-yy3)
     ibgayathri_credit = account_database.objects.filter(credit_debit="credit", account="Indian Bank Gayathri").aggregate(ibgayathri_c=Sum('amount'))
     ibgayathri_debit = account_database.objects.filter(credit_debit="debit", account="Indian Bank Gayathri").aggregate(ibgayathri_d=Sum('amount'))
     ibgayathri_total_balance = {"ibgayathri1": ibgayathri_credit["ibgayathri_c"], "ibgayathri2": ibgayathri_debit["ibgayathri_d"]} 
-    if ibgayathri_total_balance["ibgayathri1"] == None or ibgayathri_total_balance["ibgayathri2"] == None:
-        ibgayathri_balance = float(0)
+    if ibgayathri_total_balance["ibgayathri1"] == None: 
+        xx4 = float(0) 
     else:
-        ibgayathri_balance = float(ibgayathri_total_balance["ibgayathri1"])-float(ibgayathri_total_balance["ibgayathri2"]) 
+        xx4 = float(ibgayathri_total_balance["ibgayathri1"])
+    if ibgayathri_total_balance["ibgayathri2"] == None:
+        yy4 = float(0)
+    else:
+        yy4 = float(ibgayathri_total_balance["ibgayathri2"]) 
+    ibgayathri_balance = (xx4-yy4)
     ibmohan_credit = account_database.objects.filter(credit_debit="credit", account="Indian Bank Mohan").aggregate(ibmohan_c=Sum('amount'))
     ibmohan_debit = account_database.objects.filter(credit_debit="debit", account="Indian Bank Mohan").aggregate(ibmohan_d=Sum('amount'))
     ibmohan_total_balance = {"ibmohan1": ibmohan_credit["ibmohan_c"], "ibmohan2": ibmohan_debit["ibmohan_d"]} 
-    if ibmohan_total_balance["ibmohan1"] == None or ibmohan_total_balance["ibmohan2"] == None:
-        ibmohan_balance = float(0)
+    if ibmohan_total_balance["ibmohan1"] == None: 
+        xx5 = float(0) 
     else:
-        ibmohan_balance = float(ibmohan_total_balance["ibmohan1"])-float(ibmohan_total_balance["ibmohan2"]) 
+        xx5 = float(ibmohan_total_balance["ibmohan1"])
+    if ibmohan_total_balance["ibmohan2"] == None:
+        yy5 = float(0)
+    else:
+        yy5 = float(ibmohan_total_balance["ibmohan2"]) 
+    ibmohan_balance = (xx5-yy5)
     jioposlite_credit = account_database.objects.filter(credit_debit="credit", account="JioPosLite").aggregate(jioposlite_c=Sum('amount'))
     jioposlite_debit = account_database.objects.filter(credit_debit="debit", account="JioPosLite").aggregate(jioposlite_d=Sum('amount'))
     jioposlite_total_balance = {"jioposlite1": jioposlite_credit["jioposlite_c"], "jioposlite2": jioposlite_debit["jioposlite_d"]} 
-    if jioposlite_total_balance["jioposlite1"] == None or jioposlite_total_balance["jioposlite2"] == None:
-        jioposlite_balance = float(0)
+    if jioposlite_total_balance["jioposlite1"] == None: 
+        xx6 = float(0) 
     else:
-        jioposlite_balance = float(jioposlite_total_balance["jioposlite1"])-float(jioposlite_total_balance["jioposlite2"]) 
+        xx6 = float(jioposlite_total_balance["jioposlite1"])
+    if jioposlite_total_balance["jioposlite2"] == None:
+        yy6 = float(0)
+    else:
+        yy6 = float(jioposlite_total_balance["jioposlite2"]) 
+    jioposlite_balance = (xx6-yy6)
     mohancanarabank_credit = account_database.objects.filter(credit_debit="credit", account="Mohan CanaraBank").aggregate(mohancanarabank_c=Sum('amount'))
     mohancanarabank_debit = account_database.objects.filter(credit_debit="debit", account="Mohan CanaraBank").aggregate(mohancanarabank_d=Sum('amount'))
     mohancanarabank_total_balance = {"mohancanarabank1": mohancanarabank_credit["mohancanarabank_c"], "mohancanarabank2": mohancanarabank_debit["mohancanarabank_d"]} 
-    if mohancanarabank_total_balance["mohancanarabank1"] == None or mohancanarabank_total_balance["mohancanarabank2"] == None:
-        mohancanarabank_balance = float(0)
+    if mohancanarabank_total_balance["mohancanarabank1"] == None: 
+        xx7 = float(0) 
     else:
-        mohancanarabank_balance = float(mohancanarabank_total_balance["mohancanarabank1"])-float(mohancanarabank_total_balance["mohancanarabank2"]) 
+        xx7 = float(mohancanarabank_total_balance["mohancanarabank1"])
+    if mohancanarabank_total_balance["mohancanarabank2"] == None:
+        yy7 = float(0)
+    else:
+        yy7 = float(mohancanarabank_total_balance["mohancanarabank2"]) 
+    mohancanarabank_balance = (xx7-yy7)
     paynearby_credit = account_database.objects.filter(credit_debit="credit", account="PayNearBy").aggregate(paynearby_c=Sum('amount'))
     paynearby_debit = account_database.objects.filter(credit_debit="debit", account="PayNearBy").aggregate(paynearby_d=Sum('amount'))
     paynearby_total_balance = {"paynearby1": paynearby_credit["paynearby_c"], "paynearby2": paynearby_debit["paynearby_d"]} 
-    if paynearby_total_balance["paynearby1"] == None or paynearby_total_balance["paynearby2"] == None:
-        paynearby_balance = float(0)
+    if paynearby_total_balance["paynearby1"] == None: 
+        xx8 = float(0) 
     else:
-        paynearby_balance = float(paynearby_total_balance["paynearby1"])-float(paynearby_total_balance["paynearby2"]) 
+        xx8 = float(paynearby_total_balance["paynearby1"])
+    if paynearby_total_balance["paynearby2"] == None:
+        yy8 = float(0)
+    else:
+        yy8 = float(paynearby_total_balance["paynearby2"]) 
+    paynearby_balance = (xx8-yy8)
     sbimohan_credit = account_database.objects.filter(credit_debit="credit", account="SBI Mohan").aggregate(sbimohan_c=Sum('amount'))
     sbimohan_debit = account_database.objects.filter(credit_debit="debit", account="SBI Mohan").aggregate(sbimohan_d=Sum('amount'))
     sbimohan_total_balance = {"sbimohan1": sbimohan_credit["sbimohan_c"], "sbimohan2": sbimohan_debit["sbimohan_d"]} 
-    if sbimohan_total_balance["sbimohan1"] == None or sbimohan_total_balance["sbimohan2"] == None:
-        sbimohan_balance = float(0)
+    if sbimohan_total_balance["sbimohan1"] == None: 
+        xx9 = float(0) 
     else:
-        sbimohan_balance = float(sbimohan_total_balance["sbimohan1"])-float(sbimohan_total_balance["sbimohan2"]) 
+        xx9 = float(sbimohan_total_balance["sbimohan1"])
+    if sbimohan_total_balance["sbimohan2"] == None:
+        yy9 = float(0)
+    else:
+        yy9 = float(sbimohan_total_balance["sbimohan2"]) 
+    sbimohan_balance = (xx9-yy9)
     total_amount = (cash_balance + epayon_balance + iobmohan_balance + ibgayathri_balance + ibmohan_balance + jioposlite_balance + mohancanarabank_balance + paynearby_balance + sbimohan_balance)
     context = {"account1": cash_balance, "account2": epayon_balance, "account3": iobmohan_balance, "account4": ibgayathri_balance, "account5": ibmohan_balance, "account6": jioposlite_balance, "account7": mohancanarabank_balance, "account8": paynearby_balance, "account9": sbimohan_balance, "tot": total_amount}
     return render(request, "total_account_report.html", context)
 
-def test_page(request, id, date):
-    test_id = id
-    test_date = date
-    context = {"t1": test_id, "t2": test_date}
-    return render(request, "sample1.html", context)
-
-def cre_listWait(nam):
-    cash_credit = account_database.objects.filter(category="Money return", name=nam).aggregate(cash_c=Sum('amount'))
-    cash_debit = account_database.objects.filter(category="For credit", name=nam).aggregate(cash_d=Sum('amount'))
+def balanceUpdate_page(request, id, date):
+    balance_update = balance_sheet.objects.get(id=id)
+    cash_credit = account_database.objects.filter(date__range=("2023-06-10", date), credit_debit="credit", account="Cash").aggregate(cash_c=Sum('amount'))
+    cash_debit = account_database.objects.filter(date__range=("2023-06-10", date), credit_debit="debit", account="Cash").aggregate(cash_d=Sum('amount'))
     cash_total_balance = {"cash1": cash_credit["cash_c"], "cash2": cash_debit["cash_d"]} 
     if cash_total_balance["cash1"] == None or cash_total_balance["cash2"] == None:
         cash_balance = float(0)
     else:
-        cash_balance = float(cash_total_balance["cash2"])-float(cash_total_balance["cash1"]) 
-    context = {"bal_list": cash_balance}
-    return context
+        cash_balance = float(cash_total_balance["cash1"])-float(cash_total_balance["cash2"]) 
+    context = {"bal_update": balance_update, "bal_date": date , "amount": cash_balance}
+    return render(request, "cash_balance_check_update.html", context)
 
 def cre_list(nam):
     cash_credit = account_database.objects.filter(category="Money return", name=nam).aggregate(cash_c=Sum('amount'))

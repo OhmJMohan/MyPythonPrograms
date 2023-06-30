@@ -28,11 +28,11 @@ urlpatterns = [
     path('update_category/updaterecord/<int:id>', views.updaterecord),
     path('add/', views.add),
     path('add/addAccountEntry/', views.addAccountEntry),
-    path('sample/', views.sample),
+    path('account_entry_report/', views.account_entry_report),
     path('balance_view/', views.balance_view),
     path('balance_view/cash_check/', views.cash_check),
     path('balance_view/cash_check/balance_checkEntry/', views.balance_checkEntry),
     path('daily_account_report/', views.daily_account_report),
-    path('test/<int:id>/<str:date>', views.test_page),
+    path('balanceUpdate/<int:id>/<str:date>', views.balanceUpdate_page),
     path('credit/', views.credit_list),
 ]
