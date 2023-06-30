@@ -40,7 +40,7 @@
 <td> {{ x.rs2 }}</td>
 <td> {{ x.rs1 }}</td>
 <td> {{ x.status }}</td>
-<td><a href="/balanceUpdate/{{ x.id }}/{{ x.date }}">Update</a></td>
+<td><a href="/balanceUpdate/{{ x.id }}/{{ x.date|date:"Y-m-d" }}">Update</a></td>
 </tr>
 {% endfor %}
 </table>

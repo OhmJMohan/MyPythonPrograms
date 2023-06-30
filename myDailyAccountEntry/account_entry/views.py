@@ -244,7 +244,7 @@ def balanceUpdate_page(request, id, date):
         cash_balance = float(0)
     else:
         cash_balance = float(cash_total_balance["cash1"])-float(cash_total_balance["cash2"]) 
-    context = {"bal_update": balance_update, "bal_date": date , "amount": cash_balance}
+    context = {"bal_update": balance_update, "bal_date": date, "amount": cash_balance}
     return render(request, "cash_balance_check_update.html", context)
 
 def cre_list(nam):
