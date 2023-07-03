@@ -7,6 +7,10 @@
 <body>
 <h1>welcome</h1>
 <table border = "2px">
+<tr>
+<td>Name</td>
+<td>Balance amount</td>
+</tr>
 {% for x, y in balance_list.items %}
 {% if y != 0 %} 
 <tr>
@@ -15,6 +19,10 @@
 </tr>
 {% endif %}
 {% endfor %}
+<tr>
+<td>Total amount:</td>
+<td>{{ total_bal_amount }}</td>
+</tr>
 </table>
 </body>
 </html>

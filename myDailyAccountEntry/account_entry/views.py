@@ -274,9 +274,11 @@ def credit_list(request):
     for key, val in list(balanceList_names.items()):
         lst.append((val, key))
     lst.sort(reverse=True)
+    credit_balance_count = 0
     lst1 = list()
     for val, key in lst:
         lst1.append((key, val))
+        credit_balance_count = credit_balance_count + val
     converted_dict = dict(lst1)
-    context = {"balance_list": converted_dict}
+    context = {"balance_list": converted_dict, "total_bal_amount": credit_balance_count}
     return render(request, "credit_list.html", context)    
