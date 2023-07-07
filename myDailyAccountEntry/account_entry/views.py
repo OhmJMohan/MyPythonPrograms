@@ -306,3 +306,22 @@ def cre_list1(nam):
 def testPage(request):
 
     return render(request, "test.html", {"bal_amount": cre_list1("Manimaran")})
+
+def advance_filter_view(request):
+    category1 = category_list.objects.filter(category="Names").order_by('category_names').values() 
+    category2 = category_list.objects.filter(category="Credit/Debit").order_by('category_names').values() 
+    category3 = category_list.objects.filter(category="TransactionType").order_by('category_names').values() 
+    category4 = category_list.objects.filter(category="Account").order_by('category_names').values() 
+    context = {"cate_names": category1, "cate_credit_debit": category2, "cate_transactiontype": category3, "cate_account": category4}
+    return render(request, "advance_filter_view.html", context)
+
+def advanceFilter(request):
+    x_date1 = request.POST["date1"]
+    x_date2 = request.POST["date2"]
+    x_credit_debit = request.POST["credit_debit"]
+    x_category = request.POST["category"]
+    x_account = request.POST["account"]
+    x_name = request.POST["name"]
+    database_filter = account_database.objects.all().filter(date__range=(x_date1, x_date2)) + x_credit_debit + x_account + x_category + x_names + .values()
+    context = {"daily_account_entry_filter": database_filter}
+    return render(request, "advance_filter_view.html", context)

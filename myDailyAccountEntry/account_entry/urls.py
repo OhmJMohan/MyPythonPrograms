@@ -36,4 +36,5 @@ urlpatterns = [
     path('balanceUpdate/<int:id>/<str:date>', views.balanceUpdate_page),
     path('credit/', views.credit_list),
     path('test/', views.testPage),
+    path('filter/', views.advance_filter_view),
 ]
