@@ -80,10 +80,15 @@ def cash_check(request):
     cash_credit = account_database.objects.filter(date__range=("2023-06-10", x_date), credit_debit="credit", account="Cash").aggregate(cash_c=Sum('amount'))
     cash_debit = account_database.objects.filter(date__range=("2023-06-10", x_date), credit_debit="debit", account="Cash").aggregate(cash_d=Sum('amount'))
     cash_total_balance = {"cash1": cash_credit["cash_c"], "cash2": cash_debit["cash_d"]} 
-    if cash_total_balance["cash1"] == None or cash_total_balance["cash2"] == None:
-        cash_balance = float(0)
+    if cash_total_balance["cash1"] == None: 
+        xx = float(0) 
     else:
-        cash_balance = float(cash_total_balance["cash1"])-float(cash_total_balance["cash2"]) 
+        xx = float(cash_total_balance["cash1"])
+    if cash_total_balance["cash2"] == None:
+        yy = float(0)
+    else:
+        yy = float(cash_total_balance["cash2"]) 
+    cash_balance = xx - yy
     context = {"bal": cash_balance, "date": x_date}
     return render(request, "cash_balance_check.html", context)
 
@@ -282,3 +287,22 @@ def credit_list(request):
     converted_dict = dict(lst1)
     context = {"balance_list": converted_dict, "total_bal_amount": credit_balance_count}
     return render(request, "credit_list.html", context)    
+
+def cre_list1(nam):
+    cash_credit = account_database.objects.filter(category="Money return", name=nam).aggregate(cash_c=Sum('amount'))
+    cash_debit = account_database.objects.filter(category="For credit", name=nam).aggregate(cash_d=Sum('amount'))
+    cash_total_balance = {"cash1": cash_credit["cash_c"], "cash2": cash_debit["cash_d"]} 
+    if cash_total_balance["cash1"] == None: 
+        xx = float(0) 
+    else:
+        xx = float(cash_total_balance["cash1"])
+    if cash_total_balance["cash2"] == None:
+        yy = float(0)
+    else:
+        yy = float(cash_total_balance["cash2"]) 
+    cash_balance = yy - xx
+    return cash_balance
+
+def testPage(request):
+
+    return render(request, "test.html", {"bal_amount": cre_list1("Manimaran")})

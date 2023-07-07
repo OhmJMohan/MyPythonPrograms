@@ -35,4 +35,5 @@ urlpatterns = [
     path('daily_account_report/', views.daily_account_report),
     path('balanceUpdate/<int:id>/<str:date>', views.balanceUpdate_page),
     path('credit/', views.credit_list),
+    path('test/', views.testPage),
 ]
