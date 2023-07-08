@@ -37,4 +37,5 @@ urlpatterns = [
     path('credit/', views.credit_list),
     path('test/', views.testPage),
     path('filter/', views.advance_filter_view),
+    path('filter/advanceFilter/', views.advanceFilter),
 ]

@@ -322,6 +322,6 @@ def advanceFilter(request):
     x_category = request.POST["category"]
     x_account = request.POST["account"]
     x_name = request.POST["name"]
-    database_filter = account_database.objects.all().filter(date__range=(x_date1, x_date2)) + x_credit_debit + x_account + x_category + x_names + .values()
+    database_filter = account_database.objects.all().filter(date__range=(x_date1, x_date2)).filter(account=()).values()
     context = {"daily_account_entry_filter": database_filter}
-    return render(request, "advance_filter_view.html", context)
+    return render(request, "test1.html", context)

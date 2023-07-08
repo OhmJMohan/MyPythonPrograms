@@ -7,7 +7,7 @@
 <h1>Daily account entry filter</h1>
 <div>
 <h2>Select the categories to filter account entry</h2>
-<form action="filter/" method="post">
+<form action="advanceFilter/" method="post">
 {% csrf_token %}
 <table border="2pt">
 <tr>
@@ -22,7 +22,7 @@
 <td>Select the credit or debit:</td>
 <td><select name="credit_debit"> 
 {% for x in cate_credit_debit %}
-<option value=".filter(credit_debit='{{ x.category_names }}'">{{ x.category_names }}</option>
+<option value="credit_debit='{{ x.category_names }}'">{{ x.category_names }}</option>
 {% endfor %}
 </select></td>
 </tr>
@@ -30,7 +30,7 @@
 <td>Select the account here:</td>
 <td><select name="account">
 {% for x in cate_account %}
-<option value=".filter(account='{{ x.category_names }}'">{{ x.category_names }}</option>
+<option value="{{ x.category_names }}">{{ x.category_names }}</option>
 {% endfor %}
 </select></td>
 </tr>
@@ -38,7 +38,7 @@
 <td>Select the transaction category here:</td>
 <td><select name="category">
 {% for x in cate_transactiontype %}
-<option value=".filter(category='{{ x.category_names }}'">{{ x.category_names }}</option>
+<option value="category='{{ x.category_names }}'">{{ x.category_names }}</option>
 {% endfor %}
 </select></td>
 </tr>
@@ -46,7 +46,7 @@
 <td>Select the name:</td>
 <td><select name="name">
 {% for x in cate_names %}
-<option value=".filter(name='{{ x.category_names }}'">{{ x.category_names }}</option>
+<option value="name='{{ x.category_names }}'">{{ x.category_names }}</option>
 {% endfor %}
 </select></td>
 </tr>

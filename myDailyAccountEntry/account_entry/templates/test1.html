@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test page</title>
+</head>
+<body>
+<h1><marquee>Daily account entry</marquee></h1>
+<hr />
+
+{% for x in daily_account_entry_filter %}
+<p>{{ x.date }}, {{ x.credit_debit }}, {{ x.account }}, {{ x.name }}, {{ x.category }}</p>
+{% endfor %}
+
+</body>
+</html>
