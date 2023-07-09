@@ -21,14 +21,17 @@
 <tr>
 <td>Select the credit or debit:</td>
 <td><select name="credit_debit"> 
+<option value="All">Choose credit or debit, selected: All</option>
 {% for x in cate_credit_debit %}
-<option value="credit_debit='{{ x.category_names }}'">{{ x.category_names }}</option>
+<option value="{{ x.category_names }}">{{ x.category_names }}</option>
 {% endfor %}
 </select></td>
 </tr>
 <tr>
 <td>Select the account here:</td>
 <td><select name="account">
+      <option value="" disabled selected hidden>Choose an account to filter</option>
+<option value="All">All</option>
 {% for x in cate_account %}
 <option value="{{ x.category_names }}">{{ x.category_names }}</option>
 {% endfor %}
@@ -37,16 +40,20 @@
 <tr>
 <td>Select the transaction category here:</td>
 <td><select name="category">
+      <option value="" disabled selected hidden>Choose a transaction type to filter</option>
+<option value="All">All</option>
 {% for x in cate_transactiontype %}
-<option value="category='{{ x.category_names }}'">{{ x.category_names }}</option>
+<option value="{{ x.category_names }}">{{ x.category_names }}</option>
 {% endfor %}
 </select></td>
 </tr>
 <tr>
 <td>Select the name:</td>
 <td><select name="name">
+      <option value="" disabled selected hidden>Choose a name to filter</option>
+<option value="All">All</option>
 {% for x in cate_names %}
-<option value="name='{{ x.category_names }}'">{{ x.category_names }}</option>
+<option value="{{ x.category_names }}">{{ x.category_names }}</option>
 {% endfor %}
 </select></td>
 </tr>

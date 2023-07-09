@@ -304,7 +304,6 @@ def cre_list1(nam):
     return cash_balance
 
 def testPage(request):
-
     return render(request, "test.html", {"bal_amount": cre_list1("Manimaran")})
 
 def advance_filter_view(request):
@@ -322,6 +321,25 @@ def advanceFilter(request):
     x_category = request.POST["category"]
     x_account = request.POST["account"]
     x_name = request.POST["name"]
-    database_filter = account_database.objects.all().filter(date__range=(x_date1, x_date2)).filter(account=()).values()
+
+    list1 = list()
+    category1 = category_list.objects.filter(category="Names").order_by('category_names').values() 
+    for x in category1:
+        list1.append(x["category_names"])
+    if x_name == "All":
+        pass
+    else:
+        list1.clear()
+        list1.append(x_name)
+        
+    database_filter = account_database.objects.filter(date__range=(x_date1, x_date2)).filter(name__in=list1).values()
     context = {"daily_account_entry_filter": database_filter}
     return render(request, "test1.html", context)
+
+def filter1(request):
+    list1 = list()
+    category1 = category_list.objects.filter(category="Names").order_by('category_names').values() 
+    for x in category1:
+        list1.append(x["category_names"])
+    context = {"names_list": list1}
+    return render(request, "test2.html", context)
