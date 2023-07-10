@@ -322,24 +322,43 @@ def advanceFilter(request):
     x_account = request.POST["account"]
     x_name = request.POST["name"]
 
-    list1 = list()
+    list_names = list()
     category1 = category_list.objects.filter(category="Names").order_by('category_names').values() 
-    for x in category1:
-        list1.append(x["category_names"])
     if x_name == "All":
-        pass
+        for cat_list1 in category1:
+            list_names.append(cat_list1["category_names"])
     else:
-        list1.clear()
-        list1.append(x_name)
+        list_names.clear()
+        list_names.append(x_name)
+
+    list_creditDebit = list()
+    category2 = category_list.objects.filter(category="Credit/Debit").order_by('category_names').values() 
+    if x_credit_debit == "All":
+        for cat_list2 in category2:
+            list_creditDebit.append(cat_list2["category_names"])
+    else:
+        list_creditDebit.clear()
+        list_creditDebit.append(x_credit_debit)
         
-    database_filter = account_database.objects.filter(date__range=(x_date1, x_date2)).filter(name__in=list1).values()
+    list_category = list()
+    category3 = category_list.objects.filter(category="TransactionType").order_by('category_names').values() 
+    if x_category == "All":
+        for cat_list3 in category3:
+            list_category.append(cat_list3["category_names"])
+    else:
+        list_category.clear()
+        list_category.append(x_category)
+        
+    list_account = list()
+    category4 = category_list.objects.filter(category="Account").order_by('category_names').values() 
+    if x_account == "All":
+        for cat_list4 in category4:
+            list_account.append(cat_list4["category_names"])
+    else:
+        list_account.clear()
+        list_account.append(x_account)
+
+    database_filter = account_database.objects.filter(date__range=(x_date1, x_date2)).filter(name__in=list_names).filter(account__in=list_account).filter(credit_debit__in=list_creditDebit).filter(category__in=list_category).values()
     context = {"daily_account_entry_filter": database_filter}
     return render(request, "test1.html", context)
 
-def filter1(request):
-    list1 = list()
-    category1 = category_list.objects.filter(category="Names").order_by('category_names').values() 
-    for x in category1:
-        list1.append(x["category_names"])
-    context = {"names_list": list1}
-    return render(request, "test2.html", context)

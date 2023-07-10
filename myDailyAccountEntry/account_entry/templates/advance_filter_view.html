@@ -12,16 +12,17 @@
 <table border="2pt">
 <tr>
 <td>Start date:</td>
-<td><input type="date" name="date1" value={% now "Y-m-d" %} placeholder="Enter the start date here:" autofocus></td>
+<td><input type="date" name="date1" value={% now "Y-m-d" %} placeholder="Enter the start date here:" autofocus required></td>
 </tr>
 <tr>
 <td>End date:</td>
-<td><input type="date" name="date2" value={% now "Y-m-d" %} placeholder="Enter the end date here:"></td>
+<td><input type="date" name="date2" value={% now "Y-m-d" %} placeholder="Enter the end date here:" required></td>
 </tr>
 <tr>
 <td>Select the credit or debit:</td>
-<td><select name="credit_debit"> 
-<option value="All">Choose credit or debit, selected: All</option>
+<td><select name="credit_debit" required> 
+      <option value="" disabled selected hidden>Choose a credit or debit to filter</option>
+<option value="All">All</option>
 {% for x in cate_credit_debit %}
 <option value="{{ x.category_names }}">{{ x.category_names }}</option>
 {% endfor %}
@@ -29,7 +30,7 @@
 </tr>
 <tr>
 <td>Select the account here:</td>
-<td><select name="account">
+<td><select name="account" required>
       <option value="" disabled selected hidden>Choose an account to filter</option>
 <option value="All">All</option>
 {% for x in cate_account %}
@@ -39,7 +40,7 @@
 </tr>
 <tr>
 <td>Select the transaction category here:</td>
-<td><select name="category">
+<td><select name="category" required>
       <option value="" disabled selected hidden>Choose a transaction type to filter</option>
 <option value="All">All</option>
 {% for x in cate_transactiontype %}
@@ -49,7 +50,7 @@
 </tr>
 <tr>
 <td>Select the name:</td>
-<td><select name="name">
+<td><select name="name" required>
       <option value="" disabled selected hidden>Choose a name to filter</option>
 <option value="All">All</option>
 {% for x in cate_names %}
