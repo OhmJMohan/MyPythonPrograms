@@ -288,24 +288,6 @@ def credit_list(request):
     context = {"balance_list": converted_dict, "total_bal_amount": credit_balance_count}
     return render(request, "credit_list.html", context)    
 
-def cre_list1(nam):
-    cash_credit = account_database.objects.filter(category="Money return", name=nam).aggregate(cash_c=Sum('amount'))
-    cash_debit = account_database.objects.filter(category="For credit", name=nam).aggregate(cash_d=Sum('amount'))
-    cash_total_balance = {"cash1": cash_credit["cash_c"], "cash2": cash_debit["cash_d"]} 
-    if cash_total_balance["cash1"] == None: 
-        xx = float(0) 
-    else:
-        xx = float(cash_total_balance["cash1"])
-    if cash_total_balance["cash2"] == None:
-        yy = float(0)
-    else:
-        yy = float(cash_total_balance["cash2"]) 
-    cash_balance = yy - xx
-    return cash_balance
-
-def testPage(request):
-    return render(request, "test.html", {"bal_amount": cre_list1("Manimaran")})
-
 def advance_filter_view(request):
     category1 = category_list.objects.filter(category="Names").order_by('category_names').values() 
     category2 = category_list.objects.filter(category="Credit/Debit").order_by('category_names').values() 
@@ -359,6 +341,6 @@ def advanceFilter(request):
         list_account.append(x_account)
 
     database_filter = account_database.objects.filter(date__range=(x_date1, x_date2)).filter(name__in=list_names).filter(account__in=list_account).filter(credit_debit__in=list_creditDebit).filter(category__in=list_category).values()
-    context = {"daily_account_entry_filter": database_filter}
-    return render(request, "test1.html", context)
-
+    database_filterCount = account_database.objects.filter(date__range=(x_date1, x_date2)).filter(name__in=list_names).filter(account__in=list_account).filter(credit_debit__in=list_creditDebit).filter(category__in=list_category).count()
+    context = {"daily_account_entry_filter": database_filter, "coun1": database_filterCount}
+    return render(request, "Advance_filter_report.html", context)
