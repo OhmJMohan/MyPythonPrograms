@@ -2,11 +2,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>My daily account entry report page</title>
+<title>My daily account entry total report page</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'mystyle.css' %}">
+
 </head>
 <body>
 <h1>Account entry report</h1>
-<table border="2pt">
+<table>
 <tr>
 <th>Account</th>
 <th>Balance amount</th>
@@ -52,6 +55,5 @@
 <td>{{ tot }}</td>
 </tr>
 </table>
-<p>{{ bal }}</p>
 </body>
 </html>

@@ -1,0 +1,21 @@
+body {
+background-color: lightgrey;
+}
+h1, h2 {
+    text-align: center;
+    color: blue;
+    }
+p {
+    color: black;
+}
+table {
+    border-width: 2pt;
+    align-self: center;
+    align-content: center;
+    border: black;
+    border: 1pt;
+}
+th, td {
+    text-align: center;
+    vertical-align: middle;
+}

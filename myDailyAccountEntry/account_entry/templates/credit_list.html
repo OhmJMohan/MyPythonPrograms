@@ -3,13 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Credit list page</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'mystyle.css' %}">
+
 </head>
 <body>
 <h1>welcome</h1>
-<table border = "2px">
+<table>
 <tr>
-<td>Name</td>
-<td>Balance amount</td>
+<th>Name</th>
+<th>Balance amount</th>
 </tr>
 {% for x, y in balance_list.items %}
 {% if y != 0 %} 

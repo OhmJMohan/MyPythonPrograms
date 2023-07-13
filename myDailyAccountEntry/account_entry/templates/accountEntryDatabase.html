@@ -2,13 +2,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>My favorite web page</title>
+<title>Daily account entry report</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'mystyle.css' %}">
+
 </head>
 <body>
 <h1>welcome</h1>
 <h2>Account entry report</h2>
 <p>Total {{ coun }} records, last 20 records listout here.</p>
-<table border= "2pt">
+<table>
 <tr>
 <th>Date</th>
 <th>Credit_debit</th>

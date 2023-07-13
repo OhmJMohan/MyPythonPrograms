@@ -3,12 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Daily account entry advance filter view</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'mystyle.css' %}">
+
 </head>
 <body>
 <h1>welcome</h1>
 <h2>Advance filter account entry report</h2>
 <p>Total {{ coun1 }} records found.</p>
-<table border= "2pt">
+<table>
 <tr>
 <th>Date</th>
 <th>Credit_debit</th>
@@ -30,7 +33,7 @@
 <td>{{ x.amount }}</td>
 <td>{{ x.name}}</td>
 <td>{{ x.notes }}</td>
-<td><a href="daily_account_entry_update/{{ x.id }}">Update</a></td>
+<td><a href="/account_entry_report/update_account_entry/{{ x.id }}">Update</a></td>
 </tr>
 {% endfor %}
 </table>

@@ -3,9 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Category list view</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'mystyle.css' %}">
+
 </head>
 <body>
-<h1><marquee>Category</marquee></h1>
+<h1>Category list</h1>
 <hr />
 <h2>Category list</h2>
 <p>Total categories: {{ count }}.</p>
@@ -26,7 +29,7 @@
 {% endfor %}
 </table>
 <hr />
-<a href="/home">Click here to go to home page</a>
+
 
 </body>
 </html>

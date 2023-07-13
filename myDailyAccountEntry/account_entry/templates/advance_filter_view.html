@@ -2,6 +2,9 @@
 <html>
 <head>
 <title>Advance filter daily account entry</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'mystyle.css' %}">
+
 </head>
 <body>
 <h1>Daily account entry filter</h1>
@@ -9,7 +12,7 @@
 <h2>Select the categories to filter account entry</h2>
 <form action="advanceFilter/" method="post">
 {% csrf_token %}
-<table border="2pt">
+<table>
 <tr>
 <td>Start date:</td>
 <td><input type="date" name="date1" value={% now "Y-m-d" %} placeholder="Enter the start date here:" autofocus required></td>
