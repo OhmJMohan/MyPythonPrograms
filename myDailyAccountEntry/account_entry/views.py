@@ -344,3 +344,12 @@ def advanceFilter(request):
     database_filterCount = account_database.objects.filter(date__range=(x_date1, x_date2)).filter(name__in=list_names).filter(account__in=list_account).filter(credit_debit__in=list_creditDebit).filter(category__in=list_category).count()
     context = {"daily_account_entry_filter": database_filter, "coun1": database_filterCount}
     return render(request, "Advance_filter_report.html", context)
+
+def account_entry_update(request, id):
+    category1 = category_list.objects.filter(category="Names").order_by('category_names').values() 
+    category2 = category_list.objects.filter(category="Credit/Debit").order_by('category_names').values() 
+    category3 = category_list.objects.filter(category="TransactionType").order_by('category_names').values() 
+    category4 = category_list.objects.filter(category="Account").order_by('category_names').values() 
+    update_database = account_database.objects.get(id=id)
+    context = {"updateItem": update_database, "cate_names": category1, "cate_credit_debit": category2, "cate_transactiontype": category3, "cate_account": category4}
+    return render(request, "updateAccountEntry.html", context)

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Update daily account entry</title>
+</head>
+<body>
+<h1>Update daily account entry</h1>
+<div>
+<h2>Daily account entry</h2>
+<form action="updateAccountEntry/" method="post">
+{% csrf_token %}
+<h2 align="center">Record ID: {{ updateItem.id }}</h2>
+<table>
+<tr>
+<td>Date:</td>
+<td><input type="text" name="date" value="{{ updateItem.date }}" autofocus readonly></td>
+</tr>
+<tr>
+<td>Select credit or debit:</td>
+<td><select name="credit_debit"> 
+<option value="{{ updateItem.credit_debit }}">{{ updateItem.credit_debit }}</option>
+{% for x in cate_credit_debit %}
+<option value="{{ x.category_names }}">{{ x.category_names }}</option>
+{% endfor %}
+</select></td>
+</tr>
+<tr>
+<td>Select account here:</td>
+<td><select name="account">
+<option value="{{ updateItem.account }}">{{ updateItem.account }}</option>
+{% for x in cate_account %}
+<option value="{{ x.category_names }}">{{ x.category_names }}</option>
+{% endfor %}
+</select></td>
+</tr>
+<tr>
+<td>Select transaction category here:</td>
+<td><select name="category">
+<option value="{{ updateItem.category }}">{{ updateItem.category }}</option>
+{% for x in cate_transactiontype %}
+<option value="{{ x.category_names }}">{{ x.category_names }}</option>
+{% endfor %}
+</select></td>
+</tr>
+<tr>
+<td>Particular:</td>
+<td><input type="text" name="particular" value="{{ updateItem.particular }}" placeholder="Enter the particular here:"></td>
+</tr>
+<tr>
+<td>Amount:</td>
+<td><input type="text" name="amount" value="{{ updateItem.amount }}" placeholder="Enter the amount here:"></td>
+</tr>
+<tr>
+<td>Select the name:</td>
+<td><select name="name">
+<option value="{{ updateItem.name }}">{{ updateItem.name }}</option>
+{% for x in cate_names %}
+<option value="{{ x.category_names }}">{{ x.category_names }}</option>
+{% endfor %}
+</select></td>
+</tr>
+<tr>
+<td>Notes:</td>
+<td><input type="text" name="notes" value="{{ updateItem.notes }}" placeholder="Enter the notes here:"></td>
+</tr>
+<tr>
+<td>Submit:</td>
+<td><input type="submit" value="Submit"></td>
+</tr>
+</table>
+
+</form>
+</div>
+<hr />
+</body>
+</html>
