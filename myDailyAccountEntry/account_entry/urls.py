@@ -38,4 +38,5 @@ urlpatterns = [
     path('filter/', views.advance_filter_view),
     path('filter/advanceFilter/', views.advanceFilter),
     path('account_entry_report/update_account_entry/<int:id>', views.account_entry_update),
+    path('updateAccountEntry/', views.updateAccountEntry),
 ]

@@ -10,14 +10,11 @@
 <h1>Update daily account entry</h1>
 <div>
 <h2>Daily account entry</h2>
-<form action="updateAccountEntry/" method="post">
+<form action="/updateAccountEntry/" method="post">
 {% csrf_token %}
-<h2 align="center">Record ID: {{ updateItem.id }}</h2>
+<h2>Record ID: {{ updateItem.id }}</h2>
+<p>Date: {{ updateItem.date }}</p>
 <table>
-<tr>
-<td>Date:</td>
-<td><input type="text" name="date" value="{{ updateItem.date }}" autofocus readonly></td>
-</tr>
 <tr>
 <td>Select credit or debit:</td>
 <td><select name="credit_debit"> 

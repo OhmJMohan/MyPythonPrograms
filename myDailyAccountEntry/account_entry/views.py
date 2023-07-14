@@ -353,3 +353,15 @@ def account_entry_update(request, id):
     update_database = account_database.objects.get(id=id)
     context = {"updateItem": update_database, "cate_names": category1, "cate_credit_debit": category2, "cate_transactiontype": category3, "cate_account": category4}
     return render(request, "updateAccountEntry.html", context)
+
+def updateAccountEntry(request):
+    x_credit_debit = request.POST["credit_debit"]
+    x_category = request.POST["category"]
+    x_account = request.POST["account"]
+    x_particular = request.POST["particular"]
+    x_name = request.POST["name"]
+    x_amount = request.POST["amount"]
+    x_notes = request.POST["notes"]
+    updateDailyAccountEntry = account_database(credit_debit=x_credit_debit, category=x_category, account=x_account, particular=x_particular, name=x_name, amount=x_amount, notes=x_notes)
+    updateDailyAccountEntry.save()
+    return redirect("/home")
