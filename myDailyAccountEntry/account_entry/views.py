@@ -254,7 +254,7 @@ def balanceUpdate_page(request, id, date):
         yy = float(cash_total_balance["cash2"]) 
     cash_balance = xx - yy
     context = {"bal_update": balance_update, "bal_date": date, "amount": cash_balance}
-    return render(request, "update_cash_balance.html", context)
+    return render(request, "cash_balance_check_update.html", context)
 
 def cre_list(nam):
     cash_credit = account_database.objects.filter(category="Money return", name=nam).aggregate(cash_c=Sum('amount'))
@@ -376,3 +376,34 @@ def updateAccountEntry(request, id):
     update_account_database.notes = x_notes
     update_account_database.save()
     return redirect("/home")
+
+def balance_checkUpdate(request, id):
+    balance_update = balance_sheet.objects.get(id=id)
+    x_amount = request.POST["amount"]
+    x_rs500 = request.POST["rs500"]
+    x_rs200 = request.POST["rs200"]
+    x_rs100 = request.POST["rs100"]
+    x_rs50 = request.POST["rs50"]
+    x_rs20 = request.POST["rs20"]
+    x_rs10 = request.POST["rs10"]
+    x_rs5 = request.POST["rs5"]
+    x_rs2 = request.POST["rs2"]
+    x_rs1 = request.POST["rs1"]
+    x_total_amount = request.POST["total_amount"]
+    x_balance_amount = request.POST["balance_amount"]    
+    x_status = request.POST["status"]
+    balance_update.amount = x_amount
+    balance_update.rs500 = x_rs500
+    balance_update.rs200 = x_rs200
+    balance_update.rs100 = x_rs100
+    balance_update.rs50 = x_rs50
+    balance_update.rs20 = x_rs20
+    balance_update.rs10 = x_rs10
+    balance_update.rs5 = x_rs5
+    balance_update.rs2 = x_rs2
+    balance_update.rs1 = x_rs1
+    balance_update.total_amount = x_total_amount
+    balance_update.balance_amount = x_balance_amount
+    balance_update.status = x_status
+    balance_update.save()
+    return redirect("/balance_view")

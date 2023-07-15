@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1>Cash balance update</h1>
-<form action="/balance_view/cash_check/balance_checkEntry/" method="post">
+<form action="/update_balance_check/{{ bal_update.id }}" method="post">
 {% csrf_token %}
 <p>Date: <br/><input type="text" name="date" value="{{ bal_date }}" readonly autofocus></p> 
 <p>Amount: <br/><input type="text" name="amount" value="{{ amount }}" readonly></p> 
