@@ -92,14 +92,13 @@ def cash_check(request):
     context = {"bal": cash_balance, "date": x_date}
     return render(request, "cash_balance_check.html", context)
 
-
 def account_entry_report(request):
     count = 0
     account_listCount = account_database.objects.all().values()
     for coun in account_listCount:
         count = count + 1
 
-    account_list = account_database.objects.all().values()[count-20:]
+    account_list = account_database.objects.all().order_by("date").values()[count-20:]
     context = {"account": account_list, "coun": count}
     return render(request, "accountEntryDatabase.html", context)
 
@@ -245,12 +244,17 @@ def balanceUpdate_page(request, id, date):
     cash_credit = account_database.objects.filter(date__range=("2023-06-10", date), credit_debit="credit", account="Cash").aggregate(cash_c=Sum('amount'))
     cash_debit = account_database.objects.filter(date__range=("2023-06-10", date), credit_debit="debit", account="Cash").aggregate(cash_d=Sum('amount'))
     cash_total_balance = {"cash1": cash_credit["cash_c"], "cash2": cash_debit["cash_d"]} 
-    if cash_total_balance["cash1"] == None or cash_total_balance["cash2"] == None:
-        cash_balance = float(0)
+    if cash_total_balance["cash1"] == None: 
+        xx = float(0) 
     else:
-        cash_balance = float(cash_total_balance["cash1"])-float(cash_total_balance["cash2"]) 
+        xx = float(cash_total_balance["cash1"])
+    if cash_total_balance["cash2"] == None:
+        yy = float(0)
+    else:
+        yy = float(cash_total_balance["cash2"]) 
+    cash_balance = xx - yy
     context = {"bal_update": balance_update, "bal_date": date, "amount": cash_balance}
-    return render(request, "cash_balance_check_update.html", context)
+    return render(request, "update_cash_balance.html", context)
 
 def cre_list(nam):
     cash_credit = account_database.objects.filter(category="Money return", name=nam).aggregate(cash_c=Sum('amount'))
@@ -340,7 +344,7 @@ def advanceFilter(request):
         list_account.clear()
         list_account.append(x_account)
 
-    database_filter = account_database.objects.filter(date__range=(x_date1, x_date2)).filter(name__in=list_names).filter(account__in=list_account).filter(credit_debit__in=list_creditDebit).filter(category__in=list_category).values()
+    database_filter = account_database.objects.filter(date__range=(x_date1, x_date2)).filter(name__in=list_names).filter(account__in=list_account).filter(credit_debit__in=list_creditDebit).filter(category__in=list_category).order_by("date").values()
     database_filterCount = account_database.objects.filter(date__range=(x_date1, x_date2)).filter(name__in=list_names).filter(account__in=list_account).filter(credit_debit__in=list_creditDebit).filter(category__in=list_category).count()
     context = {"daily_account_entry_filter": database_filter, "coun1": database_filterCount}
     return render(request, "Advance_filter_report.html", context)
@@ -354,7 +358,8 @@ def account_entry_update(request, id):
     context = {"updateItem": update_database, "cate_names": category1, "cate_credit_debit": category2, "cate_transactiontype": category3, "cate_account": category4}
     return render(request, "updateAccountEntry.html", context)
 
-def updateAccountEntry(request):
+def updateAccountEntry(request, id):
+    update_account_database = account_database.objects.get(id=id)
     x_credit_debit = request.POST["credit_debit"]
     x_category = request.POST["category"]
     x_account = request.POST["account"]
@@ -362,6 +367,12 @@ def updateAccountEntry(request):
     x_name = request.POST["name"]
     x_amount = request.POST["amount"]
     x_notes = request.POST["notes"]
-    updateDailyAccountEntry = account_database(credit_debit=x_credit_debit, category=x_category, account=x_account, particular=x_particular, name=x_name, amount=x_amount, notes=x_notes)
-    updateDailyAccountEntry.save()
+    update_account_database.credit_debit = x_credit_debit
+    update_account_database.category = x_category
+    update_account_database.account = x_account
+    update_account_database.particular = x_particular
+    update_account_database.name = x_name
+    update_account_database.amount = x_amount
+    update_account_database.notes = x_notes
+    update_account_database.save()
     return redirect("/home")
