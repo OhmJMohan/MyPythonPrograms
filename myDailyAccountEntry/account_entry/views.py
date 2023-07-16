@@ -375,7 +375,14 @@ def updateAccountEntry(request, id):
     update_account_database.amount = x_amount
     update_account_database.notes = x_notes
     update_account_database.save()
-    return redirect("/home")
+
+def daily_acc_update1(request, id):
+    updateAccountEntry(request, id)
+    return redirect("/account_entry_report")
+
+def daily_acc_update2(request, id):
+    updateAccountEntry(request, id)
+    return redirect("/auto_close")
 
 def balance_checkUpdate(request, id):
     balance_update = balance_sheet.objects.get(id=id)
@@ -407,3 +414,6 @@ def balance_checkUpdate(request, id):
     balance_update.status = x_status
     balance_update.save()
     return redirect("/balance_view")
+
+def auto_close(request):
+    return render(request, "autoClose.html")

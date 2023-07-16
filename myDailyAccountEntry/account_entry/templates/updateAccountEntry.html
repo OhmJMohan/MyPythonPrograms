@@ -10,7 +10,7 @@
 <h1>Update daily account entry</h1>
 <div>
 <h2>Daily account entry</h2>
-<form action="/updateAccountEntry/{{ updateItem.id }}" method="post">
+<form action="updateAccountEntry/{{ updateItem.id }}" method="post">
 {% csrf_token %}
 <h2>Record ID: {{ updateItem.id }}</h2>
 

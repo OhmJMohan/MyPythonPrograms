@@ -38,6 +38,9 @@ urlpatterns = [
     path('credit/', views.credit_list),
     path('filter/', views.advance_filter_view),
     path('filter/advanceFilter/', views.advanceFilter),
-    path('update_account_entry/<int:id>', views.account_entry_update),
-    path('updateAccountEntry/<int:id>', views.updateAccountEntry),
+    path('account_entry_report/update_account_entry/<int:id>', views.account_entry_update),
+    path('filter/advanceFilter/update_account_entry/<int:id>', views.account_entry_update),
+    path('account_entry_report/update_account_entry/updateAccountEntry/<int:id>', views.daily_acc_update1),
+    path('filter/advanceFilter/update_account_entry/updateAccountEntry/<int:id>', views.daily_acc_update2),
+    path('auto_close/', views.auto_close),
 ]

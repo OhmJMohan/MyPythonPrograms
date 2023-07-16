@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Auto close page</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'mystyle.css' %}">
+
+</head>
+<body>
+<h1>Update success</h1>
+<script>
+  setTimeout(function() {
+      window.close()
+  }, 1000);
+</script>
+</body>
+</html>
