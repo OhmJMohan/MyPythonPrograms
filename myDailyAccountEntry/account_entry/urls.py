@@ -43,5 +43,5 @@ urlpatterns = [
     path('account_entry_report/update_account_entry/updateAccountEntry/<int:id>', views.daily_acc_update1),
     path('filter/advanceFilter/update_account_entry/updateAccountEntry/<int:id>', views.daily_acc_update2),
     path('auto_close/', views.auto_close),
-    path('testing/<str:category1>/<str:category2>', views.difference_list),
+    path('home/difference_check/<str:category1>/<str:category2>', views.difference_list),
 ]
