@@ -417,3 +417,35 @@ def balance_checkUpdate(request, id):
 
 def auto_close(request):
     return render(request, "autoClose.html")
+
+def difference_list(request, category1, category2):
+    balanceList_names = dict()
+    name_list = category_list.objects.filter(category="Names").values("category_names")
+    for x in name_list:
+        apple = x["category_names"]
+        cash_credit = account_database.objects.filter(category=category1, name=apple).aggregate(cash_c=Sum('amount'))
+        cash_debit = account_database.objects.filter(category=category2, name=apple).aggregate(cash_d=Sum('amount'))
+        cash_total_balance = {"cash1": cash_credit["cash_c"], "cash2": cash_debit["cash_d"]} 
+        if cash_total_balance["cash1"] == None: 
+            xx = float(0) 
+        else:
+            xx = float(cash_total_balance["cash1"])
+        if cash_total_balance["cash2"] == None:
+            yy = float(0)
+        else:
+            yy = float(cash_total_balance["cash2"]) 
+        cash_balance = xx - yy
+        balanceList_names[apple] = cash_balance
+
+    lst = list()
+    for key, val in list(balanceList_names.items()):
+        lst.append((val, key))
+    lst.sort(reverse=True)
+
+    lst1 = list()
+    for val, key in lst:
+        lst1.append((key, val))
+    converted_dict = dict(lst1)
+    context = {"balance_list": converted_dict}
+    return render(request, "difference_list.html", context)    
+
