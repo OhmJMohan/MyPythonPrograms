@@ -446,6 +446,7 @@ def difference_list(request, category1, category2):
     for val, key in lst:
         lst1.append((key, val))
     converted_dict = dict(lst1)
-    context = {"balance_list": converted_dict}
+    cate = category1 + " / " + category2
+    context = {"balance_list": converted_dict, "cate1": cate}
     return render(request, "difference_list.html", context)    
 
