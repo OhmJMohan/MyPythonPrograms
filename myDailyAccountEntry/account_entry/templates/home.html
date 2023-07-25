@@ -5,9 +5,20 @@
 <title>My daily account entry</title>
 {% load static %}
 <link rel="stylesheet" href="{% static 'mystyle.css' %}">
-
+<h1> Today's Date and Time is <span id="time"> </span></h1>
 </head>
 <body>
+<script>
+`use strict`;
+function refreshTime() {
+  const timeDisplay = document.getElementById("time");
+  const dateString = new Date().toLocaleString();
+  const formattedString = dateString.replace(", ", " - ");
+  timeDisplay.textContent = formattedString;
+}
+  setInterval(refreshTime, 1000);
+</script>
+
 <h1>Daily account entry</h1>
 <hr />
 
